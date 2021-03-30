@@ -5,15 +5,16 @@ import './css/styles.css';
 import GiphyService from './giphy-service.js';
 
 function clearSeach() {
-  $('#search').val("");
+  $('.giphySearch').val("");
+  $('.trendy').val("");
   $('.showErrors').text("");
 }
 
 $(document).ready(function() {
-  $(`.giphySearch`).click(function() {
+  $('.giphySearch').click(function() {
     const searchText = $('.look').val();
     clearSeach();
-    const promise = GiphyService.getGiphy(searchText);
+    const promise = GiphyService.search(searchText);
     promise.then(function(response) {
       const body = JSON.parse(response);
       body.data.forEach(gifObj => {
@@ -21,10 +22,9 @@ $(document).ready(function() {
       });
     });
   });
-  $(`.trendy`).click(function() {
-    const searchText = $('.look').val();
+  $('.trendy').click(function() {
     clearSeach();
-    const promise = GiphyService.getGiphy(searchText);
+    const promise = GiphyService.trend();
     promise.then(function(response) {
       const body = JSON.parse(response);
       body.data.forEach(gifObj => {
